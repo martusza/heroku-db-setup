@@ -9,3 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 db = SQLAlchemy(app)
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+@app.route("/")
+def main():
+    return "Hello World"
