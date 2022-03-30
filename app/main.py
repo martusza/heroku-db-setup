@@ -1,4 +1,6 @@
 import os
+import sys
+
 import psycopg2
 import time
 from flask import Flask, render_template, request
@@ -26,6 +28,7 @@ db.create_all()
 
 @app.route("/", methods=["POST", "GET"])
 def main():
+    sys.stdout.write("my own logs")
     if request.method == "POST":
         id_num = int(time.time())
         nickname = request.form.get("name", "Wojtek")
@@ -35,4 +38,6 @@ def main():
         db.session.commit()
         table = User.query.all()
         return render_template("main.html", table=table)
-    return render_template("main.html",table=[])
+    table = User.query.all()
+    sys.stdout.write(str(len(table)))
+    return render_template("main.html",table=table)
