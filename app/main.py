@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -21,7 +21,13 @@ class User(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
 
 
-
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def main():
-    return "Hello World"
+    if request.method == "POST":
+        nickname = request.form.get("name", "Wojtek")
+        email = request.form.get("email", "wojtek@bambi.pl")
+        user = User(nickname=nickname, email=email)
+        db.session.add(user)
+        db.session.commit()
+        return render_template("main.html")
+    return render_template("main.html")
