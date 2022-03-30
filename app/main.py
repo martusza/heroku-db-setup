@@ -33,5 +33,6 @@ def main():
         user = User(id=id_num, nickname=nickname, email=email)
         db.session.add(user)
         db.session.commit()
-        return render_template("main.html")
-    return render_template("main.html")
+        table = User.query.all()
+        return render_template("main.html", table=table)
+    return render_template("main.html",table=[])
