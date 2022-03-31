@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 DATABASE_URL = os.environ['DATABASE_URL']
+TEST_VAR = os.environ["TESTVAR"]
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL.replace("postgres", "postgresql")
 db = SQLAlchemy(app)
@@ -35,7 +36,7 @@ def main():
         db.session.add(user)
         db.session.commit()
         table = User.query.all()
-        return render_template("main.html", table=table)
+        return render_template("main.html", table=table, testvar=TEST_VAR)
     table = User.query.all()
     sys.stdout.write(str(len(table)))
-    return render_template("main.html",table=table)
+    return render_template("main.html",table=table, testvar=TEST_VAR)
