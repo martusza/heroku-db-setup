@@ -14,7 +14,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(64), index=True, unique=True)
@@ -23,17 +22,16 @@ class User(db.Model):
 
 db.create_all()
 
+
 @app.route("/", methods=["POST", "GET"])
 def main():
     if request.method == "POST":
-        id_num = int(time.time())
         nickname = request.form.get("name")
         email = request.form.get("email")
-        user = User(id=id_num, nickname=nickname, email=email)
+        user = User(nickname=nickname, email=email)
         db.session.add(user)
         db.session.commit()
         table = User.query.all()
-        return render_template("main.html", table=table, testvar=TEST_VAR)
+        return render_template("main.html", table=table)
     table = User.query.all()
-    sys.stdout.write(str(len(table)))
-    return render_template("main.html",table=table, testvar=TEST_VAR)
+    return render_template("main.html", table=table)

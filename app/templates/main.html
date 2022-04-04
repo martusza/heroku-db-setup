@@ -25,10 +25,8 @@
 
     <div class="col-md-5">
         <br><br>
-        {{ testvar }}
-        <br><br>
         {% for row in table %}
-        {{ row.nickname }}
+        {{ row.nickname }} : {{ row.email }}<br>
         {% endfor %}
     </div>
     <div class="col-md-1"></div>
