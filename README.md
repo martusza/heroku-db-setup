@@ -17,6 +17,10 @@ pip install Flask-SQLAlchemy==2.5.1
 pip install gunicorn==20.1.0
 pip install psycopg2-binary==2.9.3
 ```
+Create requirements.txt file - list of all of a project's dependencies
+```{bash}
+pip freeze >requirements.txt
+```
 ### 3. Create your project structure
 ```
 .
@@ -59,7 +63,7 @@ First you need to login to heroku, then create a named app and add postgresql da
 ```{bash}
 heroku login
 heroku apps:create example-name
-heroku addons:add heroku-postgresql:example-name
+heroku addons:create heroku-postgresql --app example-name
 ```
 
 ### 8. Connect your app with heroku postgres
@@ -74,7 +78,11 @@ DATABASE_URL = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL.replace("postgres", "postgresql")
 ```
 DATABASE_URL is already existing in your heroku app, however you need to set up this variable on your local machine if you want to be able to run your code locally.
-You can find DATABASE_URL in heroku postgres settings -> database credentials
+To get DATABASE_URL run
+```{bash}
+heroku config:get DATABASE_URL
+```
+and then copy output to create DATABASE_URL variable
 ```{bash}
 export DATABASE_URL="postgres://user_name:password@host:Port/Database"
 ```

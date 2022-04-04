@@ -4,9 +4,8 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-DATABASE_URL = os.environ['DATABASE_URL']
-TEST_VAR = os.environ["TESTVAR"]
 app = Flask(__name__)
+DATABASE_URL = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL.replace("postgres", "postgresql")
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
