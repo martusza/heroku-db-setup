@@ -1,7 +1,6 @@
 import os
 import sys
 
-import psycopg2
 import time
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
@@ -14,7 +13,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL.replace("postgres", "postgr
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 class User(db.Model):
@@ -27,11 +25,10 @@ db.create_all()
 
 @app.route("/", methods=["POST", "GET"])
 def main():
-    sys.stdout.write("my own logs")
     if request.method == "POST":
         id_num = int(time.time())
-        nickname = request.form.get("name", "Wojtek")
-        email = request.form.get("email", "wojtek@bambi.pl")
+        nickname = request.form.get("name")
+        email = request.form.get("email")
         user = User(id=id_num, nickname=nickname, email=email)
         db.session.add(user)
         db.session.commit()
