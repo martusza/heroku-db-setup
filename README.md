@@ -32,6 +32,15 @@ pip freeze >requirements.txt
 ├── requirements.txt
 └── wsgi.py
 ```
+Remember to include code that will run your app in wsgi.py
+```{python}
+from app.main import app
+
+
+if __name__ == "__main__":
+    app.run()
+```
+
 
 ### 4. Database configuration params
 In you main app file add db configuration that points to sqlite db
@@ -106,12 +115,12 @@ First push all your changes to git
 ```
 git add .
 git commit -m "commiting my app"
-git push origin your_branch
+git push origin master
 ```
 Now deploy your app
 ```
 heroku git:remote -a example-name
-git push heroku your_branch
+git push heroku master
 ```
 
 To get last 200 lines from logs (in case sth breaks during deployment)
