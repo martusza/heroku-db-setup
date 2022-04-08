@@ -78,7 +78,7 @@ heroku addons:create heroku-postgresql --app example-name
 ### 8. Connect your app with heroku postgres
 You can access your database using environment variables.<br>
 NEVER push you sensitive information like full direct link to your db to your repository.<br>
-Get your database URL using environment variables<br>
+Get your database URL using environment variables and replace sqlite url from point 4. with heroku postgres url<br>
 To use flask_sqlalchemy to connect with your db you need to replace postgres with postgresql
 ```{python}
 import os
